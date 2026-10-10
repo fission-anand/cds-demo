@@ -3,14 +3,148 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[Your Name] – Projects</title>
-<style>body{font-family:system-ui,sans-serif;max-width:640px;margin:48px auto;padding:0 20px;line-height:1.6;color:#16232E}</style>
+<title>OERF Demo – Operational Exception Resolution Framework</title>
+<meta name="description" content="OERF Demo: an agentic AI demo on AWS that takes operational exceptions from alert to verified resolution, coordinating people over WhatsApp, SMS and email.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--frost:#EEF3F6;--paper:#FFFFFF;--ink:#16232E;--muted:#4A5D6E;--rule:#D6E0E7;--teal:#0B6A86;--teal-soft:#E2F0F4;--hot:#C2410C;--safe:#2E8A66;--band:#DDF0E8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--frost);color:var(--ink);font-family:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;font-size:18px;line-height:1.6}
+a{color:var(--teal)}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+header.top{background:var(--paper);border-bottom:1px solid var(--rule)}
+header.top .wrap{display:flex;align-items:center;gap:14px;padding-top:18px;padding-bottom:18px}
+.brand{font-weight:700;font-size:22px;letter-spacing:2px}
+.brand-sub{color:var(--muted);font-size:15px}
+.hero{padding:56px 0 24px}
+.hero h1{font-size:clamp(34px,5vw,52px);line-height:1.1;margin:0 0 14px;letter-spacing:-.01em}
+.lede{font-size:20px;color:var(--muted);max-width:44ch;margin:0}
+.trace{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:20px;margin:32px 0 8px}
+.trace svg{width:100%;height:auto;display:block}
+.band{fill:var(--band)} .limit{stroke:var(--hot);stroke-width:1;stroke-dasharray:4 4;opacity:.7}
+.t-safe{fill:none;stroke:var(--safe);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.t-hot{fill:none;stroke:var(--hot);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.t-label{font-family:"Atkinson Hyperlegible",sans-serif;font-size:12px;fill:var(--muted)} .t-label.hot{fill:var(--hot);font-weight:700}
+section{padding:40px 0;border-top:1px solid var(--rule)}
+h2{font-size:28px;margin:0 0 16px}
+p{max-width:68ch}
+.stages{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.stages li{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:14px 16px}
+.stages b{display:block;color:var(--teal)}
+.stages span{font-size:16px;color:var(--muted)}
+.num{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--teal);border:1.5px solid var(--teal);border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:6px}
+.timeline{background:var(--paper);border:1px solid var(--rule);border-radius:12px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:16px}
+td{padding:10px 16px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.time{font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--teal);white-space:nowrap;width:80px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:8px}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.card h3{margin:0 0 8px;font-size:19px}
+.card ul{margin:0;padding-left:20px;font-size:16px}
+figure{margin:0;background:var(--paper);border:1px dashed var(--rule);border-radius:12px;padding:24px;text-align:center;color:var(--muted)}
+figure img{max-width:100%;height:auto}
+footer{padding:32px 0 48px;border-top:1px solid var(--rule);font-size:15px;color:var(--muted)}
+</style>
 </head>
 <body>
-<h1>[Your Name]</h1>
-<p>Solutions architect building proofs of concept with conversational AI on AWS.</p>
-<h2>OERF Demo</h2>
-<p>A demo that coordinates people over WhatsApp, SMS and email to resolve operational exceptions, built for the AWS CDS Agentic AI Hackathon.</p>
-<p>Contact: [your email]</p>
+<header class="top"><div class="wrap">
+<span class="brand">OERF</span><span class="brand-sub">Operational Exception Resolution Framework</span>
+</div></header>
+
+<main class="wrap">
+<div class="hero">
+<h1>From alert to resolution.</h1>
+<p class="lede">An agentic AI demo on AWS that takes ownership of an operational problem the moment it's detected, coordinates the people needed to fix it over WhatsApp, SMS and email, and closes it only when the fix is verified.</p>
+<div class="trace">
+<svg viewBox="0 0 720 190" role="img" aria-label="A shipment temperature rises above the 8 °C limit, the incident opens, and the temperature returns to the safe 2–8 °C band">
+<defs><clipPath id="hi"><rect x="0" y="0" width="720" height="62"/></clipPath><clipPath id="lo"><rect x="0" y="62" width="720" height="190"/></clipPath></defs>
+<rect class="band" x="0" y="62" width="720" height="128"/>
+<line class="limit" x1="0" x2="720" y1="62" y2="62"/>
+<path class="t-safe" clip-path="url(#lo)" d="M6,169 L59,146 L113,120 L166,94 L220,72 L273,62 L326,55 L380,55 L433,65 L486,79 L540,97 L593,116 L646,145 L700,165"/>
+<path class="t-hot" clip-path="url(#hi)" d="M6,169 L59,146 L113,120 L166,94 L220,72 L273,62 L326,55 L380,55 L433,65 L486,79 L540,97 L593,116 L646,145 L700,165"/>
+<text class="t-label" x="714" y="56" text-anchor="end">8 °C limit</text>
+<text class="t-label hot" x="300" y="44" text-anchor="end">incident opens</text>
+<text class="t-label" x="714" y="182" text-anchor="end">safe range 2–8 °C</text>
+</svg>
+</div>
+</div>
+
+<section aria-labelledby="problem">
+<h2 id="problem">The problem</h2>
+<p>Operations teams detect problems in seconds, but fixing them is still manual. When a refrigerated medicine shipment starts to warm up, someone has to notice the alert, call the driver, find a cold store nearby, get approval, chase replies and prove the product stayed safe. Most of those people (drivers, partner facilities, quality reviewers) work outside the company's systems.</p>
+</section>
+
+<section aria-labelledby="how">
+<h2 id="how">How it works</h2>
+<p>Every exception becomes a tracked incident that moves through seven stages. Deterministic rules make every decision, AI reads replies and photos, and people approve the decisions that matter.</p>
+<ol class="stages">
+<li><span class="num">1</span><b>Detect</b><span>A sensor reading crosses a limit and the incident opens on its own.</span></li>
+<li><span class="num">2</span><b>Understand</b><span>The shipment, product limits, location and nearby facilities are gathered.</span></li>
+<li><span class="num">3</span><b>Assess</b><span>Every option is compared against the product's excursion allowance.</span></li>
+<li><span class="num">4</span><b>Coordinate</b><span>Driver, facility and approver are engaged on WhatsApp, with SMS and email fallback.</span></li>
+<li><span class="num">5</span><b>Act</b><span>The driver is rerouted to the chosen cold store.</span></li>
+<li><span class="num">6</span><b>Verify</b><span>Sensor data confirms the product is back in range.</span></li>
+<li><span class="num">7</span><b>Close</b><span>Quality assurance reviews the report and records the decision.</span></li>
+</ol>
+</section>
+
+<section aria-labelledby="scenario">
+<h2 id="scenario">Reference scenario</h2>
+<p>A pharmaceutical shipment that must stay between 2 and 8 °C warms up after its refrigeration unit fails. Times are from the scripted demo scenario.</p>
+<div class="timeline"><table>
+<tr><td class="time">10:16</td><td>Temperature reaches 8.1 °C. The incident opens and the excursion clock starts.</td></tr>
+<tr><td class="time">10:17</td><td>The driver gets a WhatsApp check-in with buttons and reports the fault code.</td></tr>
+<tr><td class="time">10:19</td><td>Options are compared: carrying on would exceed the allowance; a cold store 9 minutes away keeps it well within.</td></tr>
+<tr><td class="time">10:20</td><td>The operations manager approves the diversion with one tap.</td></tr>
+<tr><td class="time">10:22</td><td>The facility accepts and the driver is rerouted. If it declines, the next approved facility is asked automatically.</td></tr>
+<tr><td class="time">10:45</td><td>The product has been back in range for 5 minutes: contained.</td></tr>
+<tr><td class="time">11:05</td><td>Quality assurance reviews the report and releases the product: closed.</td></tr>
+</table></div>
+</section>
+
+<section aria-labelledby="aws">
+<h2 id="aws">Built on AWS</h2>
+<div class="cols">
+<div class="card"><h3>Messaging</h3><ul>
+<li>WhatsApp via AWS End User Messaging Social</li>
+<li>SMS via AWS End User Messaging</li>
+<li>Two-way email via Amazon SES</li>
+</ul></div>
+<div class="card"><h3>AI</h3><ul>
+<li>Amazon Bedrock for reading replies and photos</li>
+<li>Amazon Bedrock AgentCore for the agent runtime</li>
+<li>Bedrock Guardrails to keep messages safe</li>
+</ul></div>
+<div class="card"><h3>Workflow and data</h3><ul>
+<li>AWS Step Functions and AWS Lambda</li>
+<li>Amazon EventBridge, SNS and SQS</li>
+<li>Amazon DynamoDB and Amazon S3</li>
+</ul></div>
+</div>
+</section>
+
+<section aria-labelledby="principles">
+<h2 id="principles">Design principles</h2>
+<div class="cols">
+<div class="card"><h3>AI understands, rules decide</h3><p>The AI interprets messages; deterministic rules make every decision, and people approve the important ones.</p></div>
+<div class="card"><h3>The record is the source of truth</h3><p>Every message, decision and reading is logged on the incident, so the outcome is fully auditable.</p></div>
+<div class="card"><h3>Configuration, not code</h3><p>Limits, people and follow-up timings are set per organisation, so the same engine serves many teams.</p></div>
+</div>
+</section>
+
+<section aria-labelledby="architecture">
+<h2 id="architecture">Architecture</h2>
+<!-- Replace this placeholder with: <img src="architecture.png" alt="OERF architecture on AWS"> -->
+<figure><p>Architecture diagram coming soon.</p></figure>
+</section>
+</main>
+
+<footer><div class="wrap">
+<p>OERF Demo is a proof of concept built for the AWS CDS Agentic AI Hackathon. It is not a commercial product and uses only synthetic data.</p>
+<p>Contact: <a href="mailto:[ananda.damaraju@fissionlabs.com]">[ananda.damaraju@fissionlabs.com]</a></p>
+</div></footer>
 </body>
 </html>
